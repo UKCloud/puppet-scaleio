@@ -13,9 +13,9 @@ class scaleio::mdm::installation(
 
   # only do a new installation of the package
   package{ 'EMC-ScaleIO-mdm':
-    version        => 'present',
-    tag            => 'scaleio-install',
-    require        => [Package['python'], Package['numactl']],
+    ensure  => 'present',
+    tag     => 'scaleio-install',
+    require => [Package['python'], Package['numactl']],
   }
 
   $actor_role_is_manager = $is_tiebreaker ? {
