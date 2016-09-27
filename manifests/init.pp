@@ -88,12 +88,6 @@ class scaleio(
 
   ensure_packages(['numactl'])
 
-  include ::scaleio::rpmkey
-
-  if $scaleio::use_consul {
-    include ::consul
-  }
-
   # extract all local ip addresses of all interfaces
   if $::interfaces {
     $interface_names = split($::interfaces, ',')

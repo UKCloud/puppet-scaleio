@@ -12,9 +12,8 @@ class scaleio::mdm::installation(
   ensure_packages(['python'])
 
   # only do a new installation of the package
-  package_verifiable{ 'EMC-ScaleIO-mdm':
-    version        => $scaleio::version,
-    manage_package => !$package_emc_scaleio_mdm_version,
+  package{ 'EMC-ScaleIO-mdm':
+    version        => 'present',
     tag            => 'scaleio-install',
     require        => [Package['python'], Package['numactl']],
   }
@@ -30,20 +29,13 @@ class scaleio::mdm::installation(
     path    => '/opt/emc/scaleio/mdm/cfg/conf.txt',
     line    => "actor_role_is_manager=${actor_role_is_manager}",
     match   => '^actor_role_is_manager=',
-    require => Package_verifiable['EMC-ScaleIO-mdm'],
+    require => Package['EMC-ScaleIO-mdm'],
   } ~>
   exec{ 'scaleio::mdm::installation::restart_mdm':
     # give the mdm time to switch its role
+    path        => ['/usr/bin','/bin'],
     command     => 'systemctl restart mdm.service; sleep 15',
     refreshonly => true,
   }
 
-  if $scaleio::use_consul {
-    include ::consul
-
-    consul_kv{ "scaleio/${::scaleio::system_name}/cluster_setup/${mdm_tb_ip}":
-      value   => 'ready',
-      require => Exec['scaleio::mdm::installation::restart_mdm'],
-    }
-  }
 }

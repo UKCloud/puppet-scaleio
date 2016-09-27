@@ -34,7 +34,6 @@ class scaleio::mdm::resources(
       $scaleio::sds_defaults,
       {
         ensure        => present,
-        useconsul     => $scaleio::use_consul,
       }
     )
   )
