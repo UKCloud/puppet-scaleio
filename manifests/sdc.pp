@@ -4,9 +4,9 @@ class scaleio::sdc {
 
   # only do a new installation of the package
   package{'EMC-ScaleIO-sdc':
-    version        => 'present',
-    tag            => 'scaleio-install',
-    require        => Package['numactl'],
+    ensure   => 'present',
+    tag      => 'scaleio-install',
+    require  => Package['numactl'],
   }
 
   if $::scaleio::mdms {

@@ -11,7 +11,7 @@ class scaleio::lia{
 
   # only versionlock package
   package{'EMC-ScaleIO-lia':
-    version        => $scaleio::version,
+    ensure         => 'present',
     manage_package => false,
     require        => Package['numactl'],
   }
