@@ -1,6 +1,6 @@
 ---
 - name: mdm02.example.com
-  box: puppetlabs/centos-7.2-64-puppet
+  box: puppetlabs/ubuntu-14.04-64-puppet
   ram: 1024
   private_ip: 172.1.0.3
   cpu_count: 1

@@ -1,11 +1,12 @@
 #!/bin/bash
 
+# Install module dependency
+puppet module install puppetlabs/stdlib
+puppet module install puppetlabs/apt
+
 # Installing prerequisites
 cd /vagrant/puppet
 puppet apply preinstall.pp
-
-# Install module dependency
-puppet module install puppetlabs/stdlib
 
 # Creating "device" for ScaleIO
 truncate -s 500GB /var/scaleio.device
@@ -18,4 +19,4 @@ git checkout makegeneric
 
 # Installing ScaleIO
 cd /vagrant/puppet
-puppet apply install.pp --hiera_config=hiera.config.yaml
+#puppet apply install.pp --hiera_config=hiera.config.yaml
