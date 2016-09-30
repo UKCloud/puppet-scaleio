@@ -3,6 +3,22 @@ class scaleio::sdc {
   include ::scaleio
 
   # only do a new installation of the package
+  file { ['/bin/emc/'],['/bin/emc/scaleio/'],['/bin/emc/scaleio/scini_sync']:
+    ensure => 'directory',
+  }
+
+  file { '/bin/emc/scaleio/scini_sync/driver_sync.conf':
+    ensure => 'file',
+    source => 'puppet:///modules/scaleio/driver_sync.conf'
+    before => Package['EMC-ScaleIO-sdc'],
+  }
+
+  file { '/bin/emc/scaleio/scini_sync/emc_key.pub':
+    ensure => 'file',
+    source => 'puppet:///modules/scaleio/RPM-GPG-KEY-ScaleIO',
+    before => Package['EMC-ScaleIO-sdc'],
+  }
+
   package{'EMC-ScaleIO-sdc':
     ensure   => 'present',
     tag      => 'scaleio-install',

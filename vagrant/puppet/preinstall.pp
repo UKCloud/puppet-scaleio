@@ -14,6 +14,11 @@ if $facts['os']['family'] == 'RedHat' {
 
 Apt::Source <| |> -> Package <| |>
 
+# A kernel version that ScaleIO supports is required.
+package { 'linux-image-4.2.0-27-generic':
+  ensure => 'installed',
+}
+
 if $facts['os']['family'] == 'Debian' {
   apt::source { 'scaleio':
     comment  => 'ScaleIO Repo',
@@ -27,10 +32,18 @@ if $facts['os']['family'] == 'Debian' {
   }
 
   apt::source { 'trusty_main':
-    comment      => 'Trusty Repos',
+    comment      => 'Trusty Main',
     location     => 'http://gb.archive.ubuntu.com/ubuntu',
     release      => 'trusty',
-    repos        => 'universe',
+    repos        => 'main universe',
+    architecture => 'amd64',
+  }
+
+  apt::source { 'trusty_updates':
+    comment      => 'Trusty Updates',
+    location     => 'http://gb.archive.ubuntu.com/ubuntu',
+    release      => 'trusty-updates',
+    repos        => 'main universe,
     architecture => 'amd64',
   }
 
