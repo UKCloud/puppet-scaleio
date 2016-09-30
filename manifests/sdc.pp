@@ -3,7 +3,7 @@ class scaleio::sdc {
   include ::scaleio
 
   # only do a new installation of the package
-  file { ['/bin/emc/'],['/bin/emc/scaleio/'],['/bin/emc/scaleio/scini_sync']:
+  file { ['/bin/emc/','/bin/emc/scaleio/','/bin/emc/scaleio/scini_sync']:
     ensure => 'directory',
   }
 

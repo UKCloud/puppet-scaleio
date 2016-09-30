@@ -43,7 +43,7 @@ if $facts['os']['family'] == 'Debian' {
     comment      => 'Trusty Updates',
     location     => 'http://gb.archive.ubuntu.com/ubuntu',
     release      => 'trusty-updates',
-    repos        => 'main universe,
+    repos        => 'main universe',
     architecture => 'amd64',
   }
 
