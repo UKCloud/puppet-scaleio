@@ -23,6 +23,10 @@ class scaleio::mdm::installation(
     false => '1',
   }
 
+  $restart_command = $facts['os']['family'] ? {
+    'Ubuntu' => 'service restart mdm',
+    'RedHat' => 'systemctl restart service.mdm',
+  }
 
   # set the actor role to manager
   file_line { 'scaleio::mdm::installation::actor':
@@ -34,7 +38,7 @@ class scaleio::mdm::installation(
   exec{ 'scaleio::mdm::installation::restart_mdm':
     # give the mdm time to switch its role
     path        => ['/usr/bin','/bin'],
-    command     => 'systemctl restart mdm.service; sleep 15',
+    command     => "$restart_command; sleep 15",
     refreshonly => true,
   }
 

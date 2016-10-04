@@ -12,11 +12,12 @@ puppet apply preinstall.pp
 truncate -s 500GB /var/scaleio.device
 
 # Install ScaleIO module
-cd /etc/puppetlabs/code/environments/production/modules/
-git clone https://github.com/UKCloud/puppet-scaleio.git scaleio
-cd scaleio
-git checkout makegeneric
+#cd /etc/puppetlabs/code/environments/production/modules/
+#git clone https://github.com/UKCloud/puppet-scaleio.git scaleio
+#cd scaleio
+#git checkout makegeneric
+ln -s /vagrant /etc/puppetlabs/code/environments/production/modules/scaleio
 
 # Installing ScaleIO
 cd /vagrant/puppet
-#puppet apply install.pp --hiera_config=hiera.config.yaml
+puppet apply install.pp --hiera_config=hiera.config.yaml

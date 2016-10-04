@@ -12,13 +12,11 @@ end
 
 Vagrant.configure(2) do |config|
 
-  config.vm.box = "puppetlabs/ubuntu-14.04-64-puppet"
-  config.ssh.forward_agent = true
-
   servers = YAML.load_file('servers.yaml')
   servers.each do |servers|
     config.vm.define servers["name"] do |srv|
       srv.vm.box = servers["box"]
+      srv.ssh.insert_key = false
       srv.vm.network "private_network", ip: servers["private_ip"]
       srv.vm.provision :hosts do |provisioner|
         provisioner.autoconfigure = true

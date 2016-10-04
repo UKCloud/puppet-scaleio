@@ -2,6 +2,11 @@ package { 'git':
   ensure => 'installed'
 }
 
+service { 'firewalld.service':
+  ensure => 'stopped',
+  enable => 'false',
+}
+
 if $facts['os']['family'] == 'RedHat' {
   yumrepo { 'ScaleIO_Repo':
     name     => 'scaleio',
@@ -14,12 +19,13 @@ if $facts['os']['family'] == 'RedHat' {
 
 Apt::Source <| |> -> Package <| |>
 
-# A kernel version that ScaleIO supports is required.
-package { 'linux-image-4.2.0-27-generic':
-  ensure => 'installed',
-}
-
 if $facts['os']['family'] == 'Debian' {
+
+# A kernel version that ScaleIO supports is required.
+  package { 'linux-image-4.2.0-27-generic':
+    ensure => 'installed',
+  }
+
   apt::source { 'scaleio':
     comment  => 'ScaleIO Repo',
     location => 'http://apt.dojo.training/scaleio',
