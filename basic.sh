@@ -20,4 +20,4 @@ ln -s /vagrant /etc/puppetlabs/code/environments/production/modules/scaleio
 
 # Installing ScaleIO
 cd /vagrant/puppet
-puppet apply install.pp --hiera_config=hiera.config.yaml
+#puppet apply install.pp --hiera_config=hiera.config.yaml

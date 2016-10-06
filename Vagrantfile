@@ -38,6 +38,11 @@ Vagrant.configure(2) do |config|
         vw.memory = servers["ram"]
         vw.cpus = servers["cpu_count"]
       end
+      srv.vm.provider "virtualbox" do |vb|
+        vb.memory = servers["ram"]
+        vb.cpus = servers["cpu_count"]
+        vb.gui = true
+      end
 
     end
   end
