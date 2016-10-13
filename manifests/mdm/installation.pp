@@ -24,7 +24,7 @@ class scaleio::mdm::installation(
   }
 
   $restart_command = $facts['os']['family'] ? {
-    'Debian' => 'service mdm restart 2>&1>/tmp/debug;echo "The result was: $?">>/tmp/debug;echo "I tried" >> /tmp/debug',
+    'Debian' => 'restart mdm',
     'RedHat' => 'systemctl restart mdm.service',
   }
 
@@ -37,8 +37,8 @@ class scaleio::mdm::installation(
   } ~>
   exec{ 'scaleio::mdm::installation::restart_mdm':
     # give the mdm time to switch its role
-    path        => ['/usr/bin','/bin','/usr/sbin'],
-    command     => "sleep 15;${restart_command}; sleep 15",
+    path        => ['/usr/sbin','/bin','/usr/bin','/usr/local/bin','/sbin'],
+    command     => "${restart_command} ; sleep 15",
     refreshonly => true,
   }
 

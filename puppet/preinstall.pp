@@ -2,11 +2,6 @@ package { 'git':
   ensure => 'installed'
 }
 
-service { 'firewalld.service':
-  ensure => 'stopped',
-  enable => 'false',
-}
-
 if $facts['os']['family'] == 'RedHat' {
   yumrepo { 'ScaleIO_Repo':
     name     => 'scaleio',

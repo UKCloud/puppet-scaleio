@@ -1,1 +1,1 @@
-puppet apply install.pp --hiera_config=hiera.config.yaml --debug
+puppet apply install.pp --hiera_config=hiera.config.yaml $1
